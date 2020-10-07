@@ -91,9 +91,13 @@ namespace ContextMenu.Droid
 				Controller.ScrollToRequested += OnScrollToRequestedNew;
 			}
 		}
-		
+
 		protected override void Dispose(bool disposing)
 		{
+			if (disposing)
+			{
+				OnElementChanged(new VisualElementChangedEventArgs(Element, null));
+			}
 			base.Dispose(disposing);
 			_isDisposed |= disposing;
 		}
@@ -133,7 +137,7 @@ namespace ContextMenu.Droid
 
 		private async void OnScrollToRequestedNew(object sender, ScrollToRequestedEventArgs e)
 		{
-			if (!_isAttachedNew)
+			if (!_isAttachedNew || _isDisposed)
 			{
 				return;
 			}
@@ -143,6 +147,9 @@ namespace ContextMenu.Droid
 			{
 				await Task.Delay(TimeSpan.FromMilliseconds(1));
 				cycle++;
+
+				if(_isDisposed)
+					return;
 
 				if (cycle >= 10)
 					break;
