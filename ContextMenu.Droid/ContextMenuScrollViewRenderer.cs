@@ -148,7 +148,7 @@ namespace ContextMenu.Droid
 				await Task.Delay(TimeSpan.FromMilliseconds(1));
 				cycle++;
 
-				if(_isDisposed)
+				if (_isDisposed)
 					return;
 
 				if (cycle >= 10)
