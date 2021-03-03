@@ -148,7 +148,7 @@ namespace ContextMenu.Droid
 				await Task.Delay(TimeSpan.FromMilliseconds(1));
 				cycle++;
 
-				if (_isDisposed)
+				if (CanHandle() == false)
 					return;
 
 				if (cycle >= 10)
@@ -221,6 +221,9 @@ namespace ContextMenu.Droid
 			_detector = new GestureDetector(Context, listener);
 			listener.Flinged += OnFlinged;
 		}
+
+		private bool CanHandle() =>
+			_isDisposed == false && Handle != IntPtr.Zero;
 
 		#endregion
 	}
