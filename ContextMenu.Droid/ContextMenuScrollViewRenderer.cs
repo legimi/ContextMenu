@@ -137,10 +137,8 @@ namespace ContextMenu.Droid
 
 		private async void OnScrollToRequestedNew(object sender, ScrollToRequestedEventArgs e)
 		{
-			if (!_isAttachedNew || _isDisposed)
-			{
+			if (!_isAttachedNew || CanHandle() == false)
 				return;
-			}
 
 			var cycle = 0;
 			while (IsLayoutRequested)
